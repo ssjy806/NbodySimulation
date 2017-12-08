@@ -12,6 +12,6 @@ public:
 	void addParticle(Particle *p);
 	void delParticle(Particle *p);
 private:
-	vector<Particle> particlesInSet;
-	vector<Force> forcesInSet;
+	std::vector<Particle> particlesInSet;
+	std::vector<Force> forcesInSet;
 };

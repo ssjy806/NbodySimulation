@@ -1,8 +1,7 @@
-﻿#include <iostream>
+#include <iostream>
 #include <string>
 #include <sstream>
 #include <vector>
-#include "nbody.h"
 #include "Particle.h"
 #include "Set.h"
 #include "Force.h"
@@ -49,7 +48,7 @@ Force * findForce(vector<Force> & forces, int name) {
 }
 
 
-void main() {
+int main(void) {
 	vector<Set> sets;
 	vector<Particle> particles;
 	vector<Force> forces;
@@ -62,7 +61,6 @@ void main() {
 		cout << "Enter a command: ";
 		getline(cin, rawInput);
 		strStream.str(rawInput);
-		fflush(stdin);
 		while (strStream >> buffer)
 			inputs.push_back(buffer);
 		if (inputs[0].size() != 2) {
@@ -106,6 +104,7 @@ void main() {
 				cout << "Unrecognized command!" << endl;
 				break;
 			}
+			break;
 		case 'a':
 			switch (inputs[0][1]) {
 			case 'p': {
@@ -116,13 +115,15 @@ void main() {
 					float posY = stof(inputs[4]);
 					float velX = stof(inputs[5]);
 					float velY = stof(inputs[6]);
-					Particle * particleAdd = &Particle(stoi(inputs[1]), mass, posX, posY, velX, velY);
-					particles.push_back(*particleAdd);
+					Particle particleAdd = Particle(stoi(inputs[1]), mass, posX, posY, velX, velY);
+					cout << "Particle " << particleAdd.name << " added" << endl;
+					particles.push_back(particleAdd);
 				}
 				else
-					cout << "Particle" << particle->name << "already exists." << endl;
-				break;
+					cout << "Particle " << particle->name << " already exists." << endl;
+				
 			}
+			break;
 			case 's': {
 				Set * set = findSet(sets, stoi(inputs[1]));
 				if (set == NULL) {
@@ -130,8 +131,8 @@ void main() {
 				}
 				else
 					cout << "Set" << set << "already exists" << endl;
-				break;
 			}
+			break;
 			case 'e': {
 				Set * set = findSet(sets, stoi(inputs[1]));
 				Particle * particle = findParticle(particles, stoi(inputs[1]));
@@ -144,8 +145,8 @@ void main() {
 					cout << "No particle with that number" << endl;
 				else
 					cout << "No particle and set with that number" << endl;
-				break;
 			}
+			break;
 			case 'f': {//set size error not included
 				Force * force = findForce(forces, stoi(inputs[1]));
 				Set * set = findSet(sets, stoi(inputs[1]));
@@ -166,6 +167,7 @@ void main() {
 				cout << "Unrecognized command!" << endl;
 				break;
 			}
+		break;
 		case 'd':
 			switch (inputs[0][1]) {
 			case 'p': {
@@ -210,6 +212,7 @@ void main() {
 				cout << "Unrecognized command!" << endl;
 				break;
 			}
+		break;
 		case 'c':
 			switch (inputs[0][1]) {
 			case 't': { //tick??
@@ -241,6 +244,7 @@ void main() {
 				cout << "Unrecognized command!" << endl;
 				break;
 			}
+		break;
 		case 'r':
 			switch (inputs[0][1]) {
 			case 'u': {
@@ -255,6 +259,7 @@ void main() {
 				cout << "Unrecognized command!" << endl;
 				break;
 			}
+		break;
 		case 'q':
 			switch (inputs[0][1]) {
 			case 'q': {
@@ -267,8 +272,10 @@ void main() {
 				cout << "Unrecognized command!" << endl;
 				break;
 			}
+		break;
 		default:
 			cout << "Unrecognized command!" << endl;
+			break;
 		}
 	}
 };

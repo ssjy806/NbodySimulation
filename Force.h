@@ -1,5 +1,5 @@
 #pragma once
-#include "Vector.h"
+#include "Vector3.h"
 
 class Force {
 public:
@@ -8,5 +8,5 @@ public:
 
 	static int count;
 	int name;
-	Vector Dir;
+	Vector3 Dir;
 };

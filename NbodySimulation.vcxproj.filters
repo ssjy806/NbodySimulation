@@ -41,7 +41,7 @@
     <ClInclude Include="Set.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Vector.h">
+    <ClInclude Include="Vector3.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

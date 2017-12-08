@@ -1,5 +1,5 @@
 #pragma once
-#include "Vector.h"
+#include "Vector3.h"
 
 class Particle {
 public:
@@ -10,11 +10,12 @@ public:
 	int name;
 	bool isFixed;
 
-	Vector getPosition(), getVelocity();
+	Vector3 getPosition(), getVelocity();
 	float getMass();
+	void print();
 	void calculate();
 
 private:
-	Vector Pos, Vel;
+	Vector3 Pos, Vel;
 	float mass;
 };

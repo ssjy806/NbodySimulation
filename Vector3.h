@@ -2,4 +2,4 @@
 
 typedef struct {
 	float x, y;
-}Vector;
+}Vector3;

@@ -29,7 +29,7 @@
     <ClInclude Include="nbody.h" />
     <ClInclude Include="Particle.h" />
     <ClInclude Include="Set.h" />
-    <ClInclude Include="Vector.h" />
+    <ClInclude Include="Vector3.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>

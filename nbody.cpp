@@ -11,6 +11,9 @@ using namespace std;
 
 Particle * findParticle(vector<Particle> & particles, int name) {
 	Particle * particle = NULL;
+	if (particles.size() == 0) {
+		return particle;
+	}
 	for (int i = 0; i < particles.size(); i++) {
 		if (particles[i].name == name) {
 			particle = &particles[i];
@@ -56,28 +59,31 @@ void main() {
 		string buffer;
 		string rawInput;
 		stringstream strStream;
-		cin >> rawInput;
+		cout << "Enter a command: ";
+		getline(cin, rawInput);
 		strStream.str(rawInput);
+		fflush(stdin);
 		while (strStream >> buffer)
 			inputs.push_back(buffer);
+		if (inputs[0].size() != 2) {
+			cout << "Unrecognized command!" << endl;
+		}
 		switch (inputs[0][0]) {
 		case 'p':
 			switch (inputs[0][1]) {
 			case 'a':
-				//print info about all the particles
+				cout << "Sex!" << endl;
 				break;
 			case 'p': {
-				try {
-					Particle * particle = findParticle(particles, stoi(inputs[1]));
-					if (particle != NULL)
-					{
-						//print info about particle
-					}
-					else cout << "No particle with that number" << endl;
+				if (inputs.size() != 2) {
+					cout << "인수 더넣으셈" << endl;
+					break;
 				}
-				catch (const char* msg) {
-					cout << "No particle with that number" << endl;
+				Particle * particle = findParticle(particles, stoi(inputs[1]));
+				if (particle != NULL) {
+					particle->print();
 				}
+				else cout << "No particle with that number" << endl;
 				break;
 			}
 			case 's': {
@@ -97,18 +103,24 @@ void main() {
 				break;
 			}
 			default:
+				cout << "Unrecognized command!" << endl;
 				break;
 			}
 		case 'a':
 			switch (inputs[0][1]) {
 			case 'p': {
-				float mass = stof(inputs[2]);
-				float posX = stof(inputs[3]);
-				float posY = stof(inputs[4]);
-				float velX = stof(inputs[5]);
-				float velY = stof(inputs[6]);
-				Particle * particle = &Particle(stoi(inputs[1]), mass, posX, posY, velX, velY);
-				particles.push_back(*particle);
+				Particle * particle = findParticle(particles, stoi(inputs[1]));
+				if (particle == NULL) {
+					float mass = stof(inputs[2]);
+					float posX = stof(inputs[3]);
+					float posY = stof(inputs[4]);
+					float velX = stof(inputs[5]);
+					float velY = stof(inputs[6]);
+					Particle * particleAdd = &Particle(stoi(inputs[1]), mass, posX, posY, velX, velY);
+					particles.push_back(*particleAdd);
+				}
+				else
+					cout << "Particle" << particle->name << "already exists." << endl;
 				break;
 			}
 			case 's': {
@@ -117,7 +129,7 @@ void main() {
 					//add a set
 				}
 				else
-					cout << "Set" << set << "added" << endl;
+					cout << "Set" << set << "already exists" << endl;
 				break;
 			}
 			case 'e': {
@@ -151,6 +163,7 @@ void main() {
 				break;
 			}
 			default:
+				cout << "Unrecognized command!" << endl;
 				break;
 			}
 		case 'd':
@@ -194,6 +207,7 @@ void main() {
 				break;
 			}
 			default:
+				cout << "Unrecognized command!" << endl;
 				break;
 			}
 		case 'c':
@@ -224,6 +238,7 @@ void main() {
 				break;
 			}
 			default:
+				cout << "Unrecognized command!" << endl;
 				break;
 			}
 		case 'r':
@@ -237,6 +252,7 @@ void main() {
 				break;
 			}
 			default:
+				cout << "Unrecognized command!" << endl;
 				break;
 			}
 		case 'q':
@@ -248,8 +264,11 @@ void main() {
 				break;
 			}
 			default:
+				cout << "Unrecognized command!" << endl;
 				break;
 			}
+		default:
+			cout << "Unrecognized command!" << endl;
 		}
 	}
 };

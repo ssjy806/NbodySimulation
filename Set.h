@@ -1,4 +1,5 @@
 #pragma once
+#include <vector>
 #include "Particle.h"
 #include "Force.h"
 
@@ -8,9 +9,9 @@ public:
 	~Set();
 	static int count;
 	int name;
-	void addParticle(Particle p);
-	void delParticle(Particle p);
+	void addParticle(Particle *p);
+	void delParticle(Particle *p);
 private:
-	Particle* Particles;
-	Force* Forces;
+	vector<Particle> particlesInSet;
+	vector<Force> forcesInSet;
 };

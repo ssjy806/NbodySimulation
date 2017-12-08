@@ -70,7 +70,7 @@ int main(void) {
 		case 'p':
 			switch (inputs[0][1]) {
 			case 'a':
-				cout << "Sex!" << endl;
+				cout << "in PA" << endl;
 				break;
 			case 'p': {
 				if (inputs.size() != 2) {

@@ -18,6 +18,19 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Force.cpp" />
+    <ClCompile Include="nbody.cpp" />
+    <ClCompile Include="Particle.cpp" />
+    <ClCompile Include="Set.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Force.h" />
+    <ClInclude Include="nbody.h" />
+    <ClInclude Include="Particle.h" />
+    <ClInclude Include="Set.h" />
+    <ClInclude Include="Vector.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{5408CBF5-2E16-419D-8262-19A71D6E0B67}</ProjectGuid>
@@ -80,8 +93,6 @@
   </PropertyGroup>
   <ItemDefinitionGroup>
   </ItemDefinitionGroup>
-  <ItemGroup>
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

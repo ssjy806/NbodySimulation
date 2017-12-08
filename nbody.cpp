@@ -63,8 +63,9 @@ int main(void) {
 		strStream.str(rawInput);
 		while (strStream >> buffer)
 			inputs.push_back(buffer);
-		if (inputs[0].size() != 2) {
+		if (inputs[0].length() != 2) {
 			cout << "Unrecognized command!" << endl;
+			continue;
 		}
 		switch (inputs[0][0]) {
 		case 'p':
@@ -108,6 +109,10 @@ int main(void) {
 		case 'a':
 			switch (inputs[0][1]) {
 			case 'p': {
+				if (inputs.size() != 7) {
+					cout << "인수 더넣으셈" << endl;
+					break;
+				}
 				Particle * particle = findParticle(particles, stoi(inputs[1]));
 				if (particle == NULL) {
 					float mass = stof(inputs[2]);

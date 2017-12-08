@@ -86,9 +86,16 @@ int main(void) {
 				break;
 			}
 			case 's': {
+				if (inputs.size() != 2) {
+					cout << "Insufficint parameters" << endl;
+					break;
+				}
 				Set * set = findSet(sets, stoi(inputs[1]));
 				if (set != NULL) {
-					//print info about set
+					cout << "--- Set " << set->name << " ---" << endl;
+					for (int i = 0; i < set->particlesInSet.size(); i++) {
+						findParticle(particles, set->particlesInSet[i])->print();
+					}
 				}
 				else cout << "No set with that number" << endl;
 				break;
@@ -96,7 +103,7 @@ int main(void) {
 			case 'f': {
 				Force * force = findForce(forces, stoi(inputs[1]));
 				if (force != NULL) {
-					//print info about set
+					force->print();
 				}
 				else cout << "No force with that number" << endl;
 				break;
@@ -110,7 +117,7 @@ int main(void) {
 			switch (inputs[0][1]) {
 			case 'p': {
 				if (inputs.size() != 7) {
-					cout << "인수 더넣으셈" << endl;
+					cout << "Insufficint parameters" << endl;
 					break;
 				}
 				Particle * particle = findParticle(particles, stoi(inputs[1]));
@@ -132,17 +139,19 @@ int main(void) {
 			case 's': {
 				Set * set = findSet(sets, stoi(inputs[1]));
 				if (set == NULL) {
-					//add a set
+					Set setAdd = Set(stoi(inputs[1]));
+					cout << "Set " << setAdd.name << " added" << endl;
+					sets.push_back(setAdd);
 				}
 				else
-					cout << "Set" << set << "already exists" << endl;
+					cout << "Set" << set->name << "already exists" << endl;
 			}
 			break;
 			case 'e': {
 				Set * set = findSet(sets, stoi(inputs[1]));
 				Particle * particle = findParticle(particles, stoi(inputs[1]));
 				if (set != NULL && particle != NULL) {
-					//add a particle to a set			
+					set->addParticle(*particle);
 				}
 				else if (set == NULL && particle != NULL)
 					cout << "No set with that number" << endl;

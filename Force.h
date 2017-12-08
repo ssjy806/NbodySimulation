@@ -9,4 +9,5 @@ public:
 	static int count;
 	int name;
 	Vector3 Dir;
+	void print();
 };

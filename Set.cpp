@@ -15,10 +15,3 @@ void Set::addParticle(Particle p) {
 void Set::delParticle(Particle p) {
 
 }
-
-void Set::print() {
-	std::cout << "--- Set " << name << " ---";
-	for (int i=0;i<particlesInSet.size();i++) {
-		particlesInSet[i].print();
-	}
-}

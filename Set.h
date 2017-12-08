@@ -11,8 +11,6 @@ public:
 	int name;
 	void addParticle(Particle p);
 	void delParticle(Particle p);
-	void print();
-private:
 	std::vector<int> particlesInSet;
 	std::vector<int> forcesInSet;
 };

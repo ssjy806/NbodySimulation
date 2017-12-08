@@ -9,9 +9,9 @@ public:
 	~Set();
 	static int count;
 	int name;
-	void addParticle(Particle *p);
-	void delParticle(Particle *p);
+	void addParticle(Particle p);
+	void delParticle(Particle p);
 private:
-	std::vector<Particle> particlesInSet;
-	std::vector<Force> forcesInSet;
+	std::vector<int> particlesInSet;
+	std::vector<int> forcesInSet;
 };

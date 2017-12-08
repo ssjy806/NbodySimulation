@@ -9,11 +9,12 @@ Set::~Set()
 {
 }
 
-void Set::addParticle(Particle *p)
+void Set::addParticle(Particle p)
 {
-	particlesInSet.push_back(*p);
+	particlesInSet.push_back(p.name);
 }
 
-void Set::delParticle(Particle *p)
+void Set::delParticle(Particle p)
 {
+
 }

@@ -75,7 +75,7 @@ int main(void) {
 				break;
 			case 'p': {
 				if (inputs.size() != 2) {
-					cout << "인수 더넣으셈" << endl;
+					cout << "Insufficint parameters" << endl;
 					break;
 				}
 				Particle * particle = findParticle(particles, stoi(inputs[1]));

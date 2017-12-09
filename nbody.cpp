@@ -53,6 +53,7 @@ int main(void) {
 	vector<Particle> particles;
 	vector<Force> forces;
 	bool gravity = true;
+	int timetick = 3600;
 	while (1) {
 		vector<string> inputs;
 		string buffer;
@@ -195,8 +196,7 @@ int main(void) {
 				Particle * particle = findParticle(particles, stoi(inputs[1]));
 				if (particle != NULL)
 				{
-					auto it1 = find(particles.begin(), particles.end(), particle);
-					set = particles.
+					//Sam`s part
 				}
 				else
 					cout << "No particle with that number" << endl;
@@ -237,26 +237,37 @@ int main(void) {
 		break;
 		case 'c':
 			switch (inputs[0][1]) {
-			case 't': { //tick??
-						//change timetick
+			case 't': { 
+				timetick = stoi(inputs[1]);
 				break;
 			}
 			case 'g': {
-				if (gravity == true) {
+				if (inputs[1] == "true") {
 					//enable gravity
-					gravity = false;
-				}
-				else {
-					//disable gravity
 					gravity = true;
+					cout << "Gravity enabled" << endl;
 				}
+				else if (inputs[1] == "false") {
+					//disable gravity
+					gravity = false;
+					cout << "Gravity disabled" << endl;
+				}
+				else { cout << "Cannot recognize status!" << endl;}
 				break;
 			}
 			case 'p': {
 				Particle * particle = findParticle(particles, stoi(inputs[1]));
 				if (particle != NULL)
 				{
-					//fix or unfix the location of particle, depending on bool
+					if (inputs[2] == "true") {
+						particle->isFixed = 1;
+						cout << "Particle " << particle->name << " is set to movable" << endl;
+					}
+					else if (inputs[2] == "false") {
+						particle->isFixed = 0;
+						cout << "Particle " << particle->name << " is set to fixed" << endl;
+					}
+					else { cout << "Cannot recognize status!" << endl; }
 				}
 				else
 					cout << "No particle with that number" << endl;
@@ -285,9 +296,18 @@ int main(void) {
 		case 'q':
 			switch (inputs[0][1]) {
 			case 'q': {
-				//stop the simulation
-				//delete all the particles, sets and forces
-				//print memory
+				forces.clear();
+				Force::count = 0;
+				cout << "All forces deleted" << endl;
+				sets.clear();
+				Set::count = 0;
+				cout << "All sets deleted" << endl;
+				particles.clear();
+				Particle.clear();
+				cout << "All particles deleted" << endl;
+				cout << "Particles: 0" << endl;
+				cout << "Forces: 0" << endl;
+				cout << "Sets: 0" << endl;
 				break;
 			}
 			default:

@@ -13,6 +13,7 @@ public:
 	void delParticle(Particle p);
 	void addForce(Force f);
 	void delForce(Force f);
+	void clear();
 
 	std::vector<int> particlesInSet;
 	std::vector<int> forcesInSet;

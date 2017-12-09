@@ -6,6 +6,12 @@ Particle::Particle(int name_ptc, float m, float x, float y, float vx, float vy) 
 	mass = m;
 	Pos = { x, y };
 	Vel = { vx,vy };
+	isFixed = 0;
+	count += 1;
+}
+
+Particle::~Particle() {
+	count -= 1;
 }
 
 Vector3 Particle::getPosition() {
@@ -27,4 +33,8 @@ void Particle::print() {
 }
 void Particle::calculate()
 {
+}
+
+void Particle::clear() {
+	count = 0;
 }

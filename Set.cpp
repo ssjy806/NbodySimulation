@@ -1,4 +1,5 @@
 #include <iostream>
+#include <algorithm>
 #include "Set.h"
 
 Set::Set(int name_set) {
@@ -9,10 +10,12 @@ Set::~Set() {
 }
 
 void Set::addParticle(Particle p) {
+	p.addIncludedSets(name);
 	particlesInSet.push_back(p.name);
 }
 
 void Set::delParticle(Particle p) {
+	p.delIncludedSets(name);
 	auto it = std::find(particlesInSet.begin(), particlesInSet.end(), p.name);
 	if (it != particlesInSet.end()) {
 		using std::swap;
@@ -26,8 +29,4 @@ void Set::addForce(Force f) {
 }
 
 void Set::delForce(Force f) {
-}
-
-void Set::clear() {
-	count = 0;
 }

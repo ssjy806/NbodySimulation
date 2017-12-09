@@ -5,7 +5,6 @@
 class Particle {
 public:
 	Particle(int name_ptc, float m, float x, float y, float vx, float vy);
-	~Particle();
 
 
 	int name;
@@ -15,11 +14,13 @@ public:
 	float getMass();
 	void print();
 	void calculate();
-	void clear();
-	std::vector<int> sets;
+	std::vector<int> getIncludedSets();
+	void addIncludedSets(int set_name);
+	void delIncludedSets(int set_name);
 
 private:
 	static int count;
+	std::vector<int> includedSets;
 	Vector3 Pos, Vel;
 	float mass;
 };

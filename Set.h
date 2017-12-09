@@ -7,13 +7,11 @@ class Set {
 public:
 	Set(int name_set);
 	~Set();
-	static int count;
 	int name;
 	void addParticle(Particle p);
 	void delParticle(Particle p);
 	void addForce(Force f);
 	void delForce(Force f);
-	void clear();
 
 	std::vector<int> particlesInSet;
 	std::vector<int> forcesInSet;

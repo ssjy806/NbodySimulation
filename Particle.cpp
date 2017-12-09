@@ -7,11 +7,6 @@ Particle::Particle(int name_ptc, float m, float x, float y, float vx, float vy) 
 	Pos = { x, y };
 	Vel = { vx,vy };
 	isFixed = 0;
-	count += 1;
-}
-
-Particle::~Particle() {
-	count -= 1;
 }
 
 Vector3 Particle::getPosition() {
@@ -35,6 +30,22 @@ void Particle::calculate()
 {
 }
 
-void Particle::clear() {
-	count = 0;
+std::vector<int> Particle::getIncludedSets() {
+	return includedSets;
+}
+
+void Particle::addIncludedSets(int set_name) {
+	includedSets.push_back(set_name);
+}
+
+void Particle::delIncludedSets(int set_name) {
+	for(int i=0; i<includedSets.size(); i++)
+	{
+		if(includedSets[i]==set_name)
+		{
+			includedSets.erase(includedSets.begin()+i);
+			break;
+		}
+		else continue;
+	}
 }

@@ -155,7 +155,7 @@ int main(void) {
 				Particle * particle = findParticle(particles, stoi(inputs[2]));
 				if (set != NULL && particle != NULL) {
 					set->addParticle(*particle);
-					particle->sets.push_back(set->name);
+					particle->addIncludedSets(set->name);
 					cout << "Particle " << particle->name << " added to set " << set->name << endl;
 				}
 				else if (set == NULL && particle != NULL)
@@ -196,7 +196,15 @@ int main(void) {
 				Particle * particle = findParticle(particles, stoi(inputs[1]));
 				if (particle != NULL)
 				{
-					//Sam`s part
+					vector<int> includedSets = particle->getIncludedSets();
+					for(int i=0; i<includedSets.size(); i++)
+					{
+						Set * set = findSet(sets, includedSets[i]);
+						set->delParticle(*particle);
+					}
+					int particle_name = particle->name;
+					particles.erase(particles.begin()+distance(particles.data(), particle));
+					cout << "Particle " << particle_name << " deleted" << endl;
 				}
 				else
 					cout << "No particle with that number" << endl;
@@ -206,7 +214,8 @@ int main(void) {
 				Particle * particle = findParticle(particles, stoi(inputs[1]));
 				Set * set = findSet(sets, stoi(inputs[1]));
 				if (set != NULL && particle != NULL) {
-					//delete particle from set		
+					set->delParticle(*particle)	;
+					cout << "Particle " << particle->name << " deleted from set " << set->name << endl;
 				}
 				else if (set == NULL && particle != NULL)
 					cout << "No set with that number" << endl;
@@ -297,18 +306,15 @@ int main(void) {
 			switch (inputs[0][1]) {
 			case 'q': {
 				forces.clear();
-				Force::count = 0;
 				cout << "All forces deleted" << endl;
 				sets.clear();
-				Set::count = 0;
 				cout << "All sets deleted" << endl;
 				particles.clear();
-				Particle.clear();
 				cout << "All particles deleted" << endl;
 				cout << "Particles: 0" << endl;
 				cout << "Forces: 0" << endl;
 				cout << "Sets: 0" << endl;
-				break;
+				return 0;
 			}
 			default:
 				cout << "Unrecognized command!" << endl;

@@ -1,15 +1,16 @@
 #include <iostream>
 #include "Force.h"
 
-Force::Force(int name_force, float x, float y) {
-	int name = name_force;
-	Vector3 Dir = { x, y };
+Force::Force(int name_force, int name_set, float x, float y) {
+	name = name_force;
+	Dir = { x, y };
+	set = name_set;
 }
 
 Force::~Force() {
 }
 
 void Force::print() {
-	std::cout << "Force: " << name << std::endl;
-	std::cout << "  (" << Dir.x << "," << Dir.y << ")" << std::endl;
+	std::cout << "Force " << name << " added to set " << set
+		<< ": (" << Dir.x << "," << Dir.y << ")" << std::endl;
 }

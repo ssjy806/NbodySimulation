@@ -1,4 +1,5 @@
 #pragma once
+#include <vector>
 #include "Vector3.h"
 
 class Particle {
@@ -12,6 +13,7 @@ public:
 	float getMass();
 	void print();
 	void calculate();
+	std::vector<int> sets;
 
 private:
 	Vector3 Pos, Vel;

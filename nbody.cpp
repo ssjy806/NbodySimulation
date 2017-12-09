@@ -71,7 +71,9 @@ int main(void) {
 		case 'p':
 			switch (inputs[0][1]) {
 			case 'a':
-				cout << "in PA" << endl;
+				for (int i = 0; i < particles.size(); i++) {
+					particles[i].print();
+				}
 				break;
 			case 'p': {
 				if (inputs.size() != 2) {
@@ -149,9 +151,11 @@ int main(void) {
 			break;
 			case 'e': {
 				Set * set = findSet(sets, stoi(inputs[1]));
-				Particle * particle = findParticle(particles, stoi(inputs[1]));
+				Particle * particle = findParticle(particles, stoi(inputs[2]));
 				if (set != NULL && particle != NULL) {
 					set->addParticle(*particle);
+					particle->sets.push_back(set->name);
+					cout << "Particle " << particle->name << " added to set " << set->name << endl;
 				}
 				else if (set == NULL && particle != NULL)
 					cout << "No set with that number" << endl;
@@ -161,13 +165,16 @@ int main(void) {
 					cout << "No particle and set with that number" << endl;
 			}
 			break;
-			case 'f': {//set size error not included
+			case 'f': {
 				Force * force = findForce(forces, stoi(inputs[1]));
-				Set * set = findSet(sets, stoi(inputs[1]));
-				int x = inputs[1][0];
-				int y = inputs[1][1];
+				Set * set = findSet(sets, stoi(inputs[2]));
+				float x = stof(inputs[3]);
+				float y = stof(inputs[4]);
 				if (set != NULL && force == NULL) {
-					//add a force which is imposed on the particles in set <set> whose size is given as a vector (x, y)
+					Force forceAdd = Force(stoi(inputs[1]), stoi(inputs[2]), x, y);
+					set->addForce(forceAdd);
+					forces.push_back(forceAdd);
+					cout << "Force " << forceAdd.name << " added" << endl;
 				}
 				else if (set == NULL && force == NULL)
 					cout << "No set with that number" << endl;
@@ -188,7 +195,8 @@ int main(void) {
 				Particle * particle = findParticle(particles, stoi(inputs[1]));
 				if (particle != NULL)
 				{
-					//delete particle
+					auto it1 = find(particles.begin(), particles.end(), particle);
+					set = particles.
 				}
 				else
 					cout << "No particle with that number" << endl;

@@ -11,6 +11,9 @@ public:
 	int name;
 	void addParticle(Particle p);
 	void delParticle(Particle p);
+	void addForce(Force f);
+	void delForce(Force f);
+
 	std::vector<int> particlesInSet;
 	std::vector<int> forcesInSet;
 };

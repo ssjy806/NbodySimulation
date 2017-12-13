@@ -29,4 +29,10 @@ void Set::addForce(Force f) {
 }
 
 void Set::delForce(Force f) {
+	auto it = std::find(forcesInSet.begin(), forcesInSet.end(), f.name);
+	if (it != forcesInSet.end()) {
+		using std::swap;
+		swap(*it, forcesInSet.back());
+		forcesInSet.pop_back();
+	}
 }

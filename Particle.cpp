@@ -43,12 +43,16 @@ void Particle::calculate(std::vector<Particle> particles, std::vector<int> parti
 		if (gravity) {
 			for (int i = 0; i < particlesInSet.size(); i++) {
 				Particle * particle = findParticle(particles, particlesInSet[i]);
-				Vector3 displace = Pos.subtraction(particle->getPosition());
-				float distance = sqrt(pow(displace.x, 2) + pow(displace.y, 2));
-				float theta = atan(displace.y / displace.x);
-				float grav = (g*mass*particle->getMass()) / pow(distance, 2);
-				Vector3 gravity = { grav*cos(theta), grav*sin(theta) };
-				sum_force = sum_force.add(gravity);
+				if (particle->name != name) {
+					Vector3 displace = Pos.subtraction(particle->getPosition());
+					float distance = sqrt(pow(displace.x, 2) + pow(displace.y, 2));
+					float theta = atan(displace.y / displace.x);
+					float grav = (g*mass*particle->getMass()) / pow(distance, 2);
+					float gravity_x = grav*cos(theta);
+					float gravity_y = grav*sin(theta);
+					Vector3 gravity_calc = { gravity_x, gravity_y };
+					sum_force = sum_force.add(gravity_calc);
+				}
 			}
 		}
 		for (int i = 0; i < forcesInSet.size(); i++) {

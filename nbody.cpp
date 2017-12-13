@@ -11,8 +11,8 @@ using namespace std;
 
 Vector3 Vector3::add(Vector3 v) {
 	float res_x, res_y;
-	res_x = v.x + this->x;
-	res_y = v.y + this->y;
+	res_x = v.x + x;
+	res_y = v.y + y;
 	Vector3 result = { res_x, res_y };
 	return result;
 }
@@ -366,12 +366,12 @@ int main(void) {
 				if (particle != NULL)
 				{
 					if (inputs[2] == "true") {
-						particle->isFixed = 0;
-						cout << "Particle " << particle->name << " is set to movable" << endl;
-					}
-					else if (inputs[2] == "false") {
 						particle->isFixed = 1;
 						cout << "Particle " << particle->name << " is set to fixed" << endl;
+					}
+					else if (inputs[2] == "false") {
+						particle->isFixed = 0;
+						cout << "Particle " << particle->name << " is set to movable" << endl;
 					}
 					else { cout << "Cannot recognize status!" << endl; }
 				}
@@ -394,6 +394,7 @@ int main(void) {
 				//run the simulation for <duration> seconds
 				int duration = stoi(inputs[1]);
 				while (time <= duration) {
+					time += timetick;
 					for (int i = 0; i < set_to_simul.particlesInSet.size(); i++) {
 						Particle * particle = findParticle(particles, set_to_simul.particlesInSet[i]);
 						particle->calculate(particles, set_to_simul.particlesInSet, forces, set_to_simul.forcesInSet, gravity, timetick);
@@ -402,8 +403,6 @@ int main(void) {
 						Particle * particle = findParticle(particles, set_to_simul.particlesInSet[i]);
 						particle->init();
 					}
-					time += timetick;
-					
 				}
 				
 				
@@ -417,18 +416,19 @@ int main(void) {
 				//run the simulation for <duration> seconds and print out the location of each particle (x and y coordinates) at each tick
 				int duration = stoi(inputs[1]);
 				while (time <= duration) {
+					time += timetick;
 					for (int i = 0; i < set_to_simul.particlesInSet.size(); i++) {
 						Particle * particle = findParticle(particles, set_to_simul.particlesInSet[i]);
 						particle->calculate(particles, set_to_simul.particlesInSet, forces, set_to_simul.forcesInSet, gravity, timetick);
 					}
-					for (int i = 0; i < set_to_simul.particlesInSet.size(); i++) {
-						Particle * particle = findParticle(particles, set_to_simul.particlesInSet[i]);
+					for (int j = 0; j < set_to_simul.particlesInSet.size(); j++) {
+						Particle * particle = findParticle(particles, set_to_simul.particlesInSet[j]);
 						particle->init();
 						cout << "P" << particle->name << "," << time << "," << particle->getPosition().x << "."
 							<< particle->getPosition().y << endl;
 					}
-					time += timetick;
 				}
+				time = 0;
 				break;
 			}
 			default:

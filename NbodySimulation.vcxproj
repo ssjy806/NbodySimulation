@@ -23,7 +23,6 @@
     <ClCompile Include="nbody.cpp" />
     <ClCompile Include="Particle.cpp" />
     <ClCompile Include="Set.cpp" />
-    <ClCompile Include="Vector3.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Force.h" />

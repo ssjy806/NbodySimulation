@@ -90,19 +90,23 @@ int main(void) {
 		strStream.str(rawInput);
 		while (strStream >> buffer)
 			inputs.push_back(buffer);
+		// input error
 		if (inputs[0].length() != 2) {
 			cout << "Unrecognized command!" << endl;
 			continue;
 		}
+		// case setting according to inputs
 		switch (inputs[0][0]) {
 		case 'p':
 			switch (inputs[0][1]) {
 			case 'a':
 				if (inputs.size() != 1) {
+					// input error
 					cout << "Wrong number of parameters" << endl;
 					break;
 				}
 				for (int i = 0; i < particles.size(); i++) {
+					// print information about all the particles
 					particles[i].print();
 				}
 				break;
@@ -113,23 +117,29 @@ int main(void) {
 				}
 				Particle * particle = findParticle(particles, stoi(inputs[1]));
 				if (particle != NULL) {
+					// print information of particle
 					particle->print();
 				}
+				// error when the particle doesn't exist
 				else cout << "No particle with that number" << endl;
 				break;
 			}
 			case 's': {
 				if (inputs.size() != 2) {
+					// input error
 					cout << "Insufficint parameters" << endl;
 					break;
 				}
 				Set * set = findSet(sets, stoi(inputs[1]));
 				if (set != NULL) {
+					// print information of set with the number of input 
 					cout << "--- Set " << set->name << " ---" << endl;
 					for (int i = 0; i < set->particlesInSet.size(); i++) {
+						// print imformation of all particles in set
 						findParticle(particles, set->particlesInSet[i])->print();
 					}
 				}
+				// error when the set doesn't exist
 				else cout << "No set with that number" << endl;
 				break;
 			}
@@ -140,8 +150,10 @@ int main(void) {
 				}
 				Force * force = findForce(forces, stoi(inputs[1]));
 				if (force != NULL) {
+					// print information of forces with the number of input
 					force->print();
 				}
+				// error when the force doesn't exist
 				else cout << "No force with that number" << endl;
 				break;
 			}
@@ -159,6 +171,7 @@ int main(void) {
 				}
 				Particle * particle = findParticle(particles, stoi(inputs[1]));
 				if (particle == NULL) {
+					// add a particle with the imformation in inputs
 					float mass = stof(inputs[2]);
 					float posX = stof(inputs[3]);
 					float posY = stof(inputs[4]);
@@ -169,6 +182,7 @@ int main(void) {
 					particles.push_back(particleAdd);
 				}
 				else
+					// error when the particle elready exists
 					cout << "Particle " << particle->name << " already exists." << endl;
 				
 			}
@@ -180,11 +194,13 @@ int main(void) {
 				}
 				Set * set = findSet(sets, stoi(inputs[1]));
 				if (set == NULL) {
+					// add a set with the number in input
 					Set setAdd = Set(stoi(inputs[1]));
 					cout << "Set " << setAdd.name << " added" << endl;
 					sets.push_back(setAdd);
 				}
 				else
+					// error when the set elready exists
 					cout << "Set " << set->name << " already exists" << endl;
 			}
 			break;
@@ -196,10 +212,12 @@ int main(void) {
 				Set * set = findSet(sets, stoi(inputs[1]));
 				Particle * particle = findParticle(particles, stoi(inputs[2]));
 				if (set != NULL && particle != NULL) {
+					// add a particle to a set
 					set->addParticle(*particle);
 					particle->addIncludedSets(set->name);
 					cout << "Particle " << particle->name << " added to set " << set->name << endl;
 				}
+				// error when the set or particle doesn't exist
 				else if (set == NULL && particle != NULL)
 					cout << "No set with that number" << endl;
 				else if (set != NULL && particle == NULL)
@@ -218,17 +236,19 @@ int main(void) {
 				float x = stof(inputs[3]);
 				float y = stof(inputs[4]);
 				if (set != NULL && force == NULL) {
+					// add a force, which is imposed on the particles in set whose size is given as a vector in inputs
 					Force forceAdd = Force(stoi(inputs[1]), stoi(inputs[2]), x, y);
 					set->addForce(forceAdd);
 					forces.push_back(forceAdd);
 					cout << "Force " << forceAdd.name << " added" << endl;
 				}
+				// error when the set doesn't exist or the force already exist
 				else if (set == NULL && force == NULL)
 					cout << "No set with that number" << endl;
 				else if (set != NULL && force != NULL)
-					cout << "force" << force << "added" << endl;
+					cout << "force" << force << "already exist" << endl;
 				else
-					cout << "No set with that number and force" << force << "added" << endl;
+					cout << "No set with that number and force" << force << "already exist" << endl;
 				break;
 			}
 			default:
@@ -244,11 +264,12 @@ int main(void) {
 					break;
 				}
 				Particle * particle = findParticle(particles, stoi(inputs[1]));
-				if (particle != NULL)
-				{
+				if (particle != NULL) {
+					// delete particle
 					vector<int> includedSets = particle->getIncludedSets();
 					for(int i=0; i<includedSets.size(); i++)
 					{
+						// find all particles in set
 						Set * set = findSet(sets, includedSets[i]);
 						set->delParticle(*particle);
 					}
@@ -268,6 +289,7 @@ int main(void) {
 				Particle * particle = findParticle(particles, stoi(inputs[1]));
 				Set * set = findSet(sets, stoi(inputs[1]));
 				if (set != NULL && particle != NULL) {
+					// delete particle from set
 					set->delParticle(*particle);
 					cout << "Particle " << particle->name << " deleted from set " << set->name << endl;
 				}
@@ -285,8 +307,8 @@ int main(void) {
 					break;
 				}
 				Force * force = findForce(forces, stoi(inputs[1]));
-				if (force != NULL)
-				{
+				if (force != NULL) {
+					// delete force
 					Set * set = findSet(sets, force->set);
 					set->delForce(*force);
 					int force_name = force->name;
@@ -336,6 +358,7 @@ int main(void) {
 					cout << "Wrong number of parameters" << endl;
 					break;
 				}
+				// change timetick
 				timetick = stoi(inputs[1]);
 				break;
 			}
@@ -366,10 +389,12 @@ int main(void) {
 				if (particle != NULL)
 				{
 					if (inputs[2] == "true") {
+						// fix the location of particle
 						particle->isFixed = 1;
 						cout << "Particle " << particle->name << " is set to fixed" << endl;
 					}
 					else if (inputs[2] == "false") {
+						// unfix the location of particle
 						particle->isFixed = 0;
 						cout << "Particle " << particle->name << " is set to movable" << endl;
 					}
@@ -390,17 +415,20 @@ int main(void) {
 				if (inputs.size() != 2) {
 					cout << "Wrong number of parameters" << endl;
 					break;
-				}
-				//run the simulation for <duration> seconds
+				}				
 				int duration = stoi(inputs[1]);
+				//run the simulation for <duration> seconds
 				while (time <= duration) {
+					// run the simulation by timetick
 					time += timetick;
 					for (int i = 0; i < set_to_simul.particlesInSet.size(); i++) {
 						Particle * particle = findParticle(particles, set_to_simul.particlesInSet[i]);
+						// caculate the imformation of particles
 						particle->calculate(particles, set_to_simul.particlesInSet, forces, set_to_simul.forcesInSet, gravity, timetick);
 						}
 					for (int i = 0; i < set_to_simul.particlesInSet.size(); i++) {
 						Particle * particle = findParticle(particles, set_to_simul.particlesInSet[i]);
+						// initialize the imformation which had caculated
 						particle->init();
 					}
 				}
@@ -439,12 +467,14 @@ int main(void) {
 		case 'q':
 			switch (inputs[0][1]) {
 			case 'q': {
+				// delete all the particles, sets and forces
 				forces.clear();
 				cout << "All forces deleted" << endl;
 				sets.clear();
 				cout << "All sets deleted" << endl;
 				particles.clear();
 				cout << "All particles deleted" << endl;
+				// print memory
 				cout << "Particles: 0" << endl;
 				cout << "Forces: 0" << endl;
 				cout << "Sets: 0" << endl;

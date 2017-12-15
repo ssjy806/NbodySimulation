@@ -9,26 +9,26 @@
 #include "Vector3.h"
 using namespace std;
 
-Vector3 Vector3::add(Vector3 v) {
+Vector3 add(Vector3 v1, Vector3 v2) {
 	float res_x, res_y;
-	res_x = v.x + x;
-	res_y = v.y + y;
+	res_x = v1.x + v2.x;
+	res_y = v1.y + v2.y;
 	Vector3 result = { res_x, res_y };
 	return result;
 }
 
-Vector3 Vector3::subtraction(Vector3 v) {
+Vector3 subtraction(Vector3 v1, Vector3 v2) {
 	float res_x, res_y;
-	res_x = v.x - this->x;
-	res_y = v.y - this->y;
+	res_x = v1.x - v2.x;
+	res_y = v1.y - v2.y;
 	Vector3 result = { res_x, res_y };
 	return result;
 }
 
-float Vector3::distance(Vector3 v) {
-	float dis_x, dis_y;
-	dis_x = this->subtraction(v).x;
-	dis_y = this->subtraction(v).y;
+float distance(Vector3 v1, Vector3 v2) {
+	Vector3 sub = subtraction(v1, v2);
+	float dis_x = sub.x;
+	float dis_y = sub.y;
 	return pow((pow(dis_x, 2)+pow(dis_y, 2)), 1/2);
 }
 

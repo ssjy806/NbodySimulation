@@ -6,6 +6,9 @@
 
 extern Particle * findParticle(std::vector<Particle> & particles, int name);
 extern Force * findForce(std::vector<Force> & forces, int name);
+extern Vector3 add(Vector3 v1, Vector3 v2);
+extern Vector3 subtraction(Vector3 v1, Vector3 v2);
+extern float distance(Vector3 v1, Vector3 v2);
 
 Particle::Particle(int name_ptc, float m, float x, float y, float vx, float vy) {
 	name = name_ptc;
@@ -44,20 +47,20 @@ void Particle::calculate(std::vector<Particle> particles, std::vector<int> parti
 			for (int i = 0; i < particlesInSet.size(); i++) {
 				Particle * particle = findParticle(particles, particlesInSet[i]);
 				if (particle->name != name) {
-					Vector3 displace = Pos.subtraction(particle->getPosition());
+					Vector3 displace = subtraction(particle->getPosition(), Pos);
 					float distance = sqrt(pow(displace.x, 2) + pow(displace.y, 2));
 					float theta = atan(displace.y / displace.x);
 					float grav = (g*mass*particle->getMass()) / pow(distance, 2);
 					float gravity_x = grav*cos(theta);
 					float gravity_y = grav*sin(theta);
 					Vector3 gravity_calc = { gravity_x, gravity_y };
-					sum_force = sum_force.add(gravity_calc);
+					sum_force = add(sum_force, gravity_calc);
 				}
 			}
 		}
 		for (int i = 0; i < forcesInSet.size(); i++) {
 			Force * force = findForce(forces, forcesInSet[i]);
-			sum_force = sum_force.add(force->Dir);
+			sum_force = add(sum_force, force->Dir);
 		}
 		a_x = sum_force.x / mass;
 		a_y = sum_force.y / mass;
@@ -65,8 +68,8 @@ void Particle::calculate(std::vector<Particle> particles, std::vector<int> parti
 		d_y = Vel.y*t + (1 / 2)*a_y*pow(t, 2);
 		Vector3 disp = { d_x, d_y };
 		Vector3 accel = { a_x*t, a_y*t };
-		Pos_post = Pos_post.add(disp);
-		Vel_post = Vel_post.add(accel);
+		Pos_post = add(Pos_post, disp);
+		Vel_post = add(Vel_post, accel);
 	}
 }
 

@@ -11,6 +11,7 @@ extern Vector3 subtraction(Vector3 v1, Vector3 v2);
 extern float distance(Vector3 v1, Vector3 v2);
 
 Particle::Particle(int name_ptc, float m, float x, float y, float vx, float vy) {
+	// particle imformation
 	name = name_ptc;
 	mass = m;
 	Pos = { x, y };

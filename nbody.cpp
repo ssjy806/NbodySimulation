@@ -11,6 +11,7 @@ using namespace std;
 
 Vector3 add(Vector3 v1, Vector3 v2) {
 	double res_x, res_y;
+	// addition of vector
 	res_x = v1.x + v2.x;
 	res_y = v1.y + v2.y;
 	Vector3 result = { res_x, res_y };
@@ -19,6 +20,7 @@ Vector3 add(Vector3 v1, Vector3 v2) {
 
 Vector3 subtraction(Vector3 v1, Vector3 v2) {
 	double res_x, res_y;
+	// subtraction of vector
 	res_x = v1.x - v2.x;
 	res_y = v1.y - v2.y;
 	Vector3 result = { res_x, res_y };
@@ -26,6 +28,7 @@ Vector3 subtraction(Vector3 v1, Vector3 v2) {
 }
 
 double distance(Vector3 v1, Vector3 v2) {
+	// distance between vectors
 	Vector3 sub = subtraction(v1, v2);
 	double dis_x = sub.x;
 	double dis_y = sub.y;

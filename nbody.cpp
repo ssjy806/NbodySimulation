@@ -10,6 +10,7 @@
 using namespace std;
 
 Vector3 Vector3::add(Vector3 v) {
+	// addition of vector
 	float res_x, res_y;
 	res_x = v.x + x;
 	res_y = v.y + y;
@@ -18,6 +19,7 @@ Vector3 Vector3::add(Vector3 v) {
 }
 
 Vector3 Vector3::subtraction(Vector3 v) {
+	// subtraction of vector
 	float res_x, res_y;
 	res_x = v.x - this->x;
 	res_y = v.y - this->y;
@@ -26,6 +28,7 @@ Vector3 Vector3::subtraction(Vector3 v) {
 }
 
 float Vector3::distance(Vector3 v) {
+	// distance between vectors
 	float dis_x, dis_y;
 	dis_x = this->subtraction(v).x;
 	dis_y = this->subtraction(v).y;
@@ -33,6 +36,7 @@ float Vector3::distance(Vector3 v) {
 }
 
 Particle * findParticle(vector<Particle> & particles, int name) {
+	// find a particle with input
 	Particle * particle = NULL;
 	if (particles.size() == 0) {
 		return particle;
@@ -48,6 +52,7 @@ Particle * findParticle(vector<Particle> & particles, int name) {
 }
 
 Set * findSet(vector<Set> & sets, int name) {
+	// find a set with input
 	Set * set = NULL;
 	for (int i = 0; i < sets.size(); i++) {
 		if (sets[i].name == name) {
@@ -60,6 +65,7 @@ Set * findSet(vector<Set> & sets, int name) {
 }
 
 Force * findForce(vector<Force> & forces, int name) {
+	// find a force with input
 	Force * force = NULL;
 	for (int i = 0; i < forces.size(); i++) {
 		if (forces[i].name == name) {
@@ -80,6 +86,7 @@ int main(void) {
 	bool gravity = true;
 	int timetick = 3600;
 	int time = 0;
+	// repeat command until 'qq' entered
 	while (1) {
 		vector<string> inputs;
 		string buffer;

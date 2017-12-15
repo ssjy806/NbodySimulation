@@ -8,6 +8,7 @@ extern Particle * findParticle(std::vector<Particle> & particles, int name);
 extern Force * findForce(std::vector<Force> & forces, int name);
 
 Particle::Particle(int name_ptc, float m, float x, float y, float vx, float vy) {
+	// particle imformation
 	name = name_ptc;
 	mass = m;
 	Pos = { x, y };

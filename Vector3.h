@@ -1,5 +1,5 @@
 #pragma once
 
 typedef struct Vector3 {
-	float x, y;
+	double x, y;
 }Vector3;

@@ -1,7 +1,7 @@
 #include <iostream>
 #include "Force.h"
 
-Force::Force(int name_force, int name_set, float x, float y) {
+Force::Force(int name_force, int name_set, double x, double y) {
 	// force imformation
 	name = name_force;
 	Dir = { x, y };

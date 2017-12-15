@@ -3,7 +3,7 @@
 
 class Force {
 public:
-	Force(int name_force, int name_set, float x, float y);
+	Force(int name_force, int name_set, double x, double y);
 	~Force();
 
 	int name;

@@ -10,7 +10,7 @@
 using namespace std;
 
 Vector3 add(Vector3 v1, Vector3 v2) {
-	float res_x, res_y;
+	double res_x, res_y;
 	res_x = v1.x + v2.x;
 	res_y = v1.y + v2.y;
 	Vector3 result = { res_x, res_y };
@@ -18,17 +18,17 @@ Vector3 add(Vector3 v1, Vector3 v2) {
 }
 
 Vector3 subtraction(Vector3 v1, Vector3 v2) {
-	float res_x, res_y;
+	double res_x, res_y;
 	res_x = v1.x - v2.x;
 	res_y = v1.y - v2.y;
 	Vector3 result = { res_x, res_y };
 	return result;
 }
 
-float distance(Vector3 v1, Vector3 v2) {
+double distance(Vector3 v1, Vector3 v2) {
 	Vector3 sub = subtraction(v1, v2);
-	float dis_x = sub.x;
-	float dis_y = sub.y;
+	double dis_x = sub.x;
+	double dis_y = sub.y;
 	return pow((pow(dis_x, 2)+pow(dis_y, 2)), 1/2);
 }
 
@@ -172,11 +172,11 @@ int main(void) {
 				Particle * particle = findParticle(particles, stoi(inputs[1]));
 				if (particle == NULL) {
 					// add a particle with the imformation in inputs
-					float mass = stof(inputs[2]);
-					float posX = stof(inputs[3]);
-					float posY = stof(inputs[4]);
-					float velX = stof(inputs[5]);
-					float velY = stof(inputs[6]);
+					double mass = stof(inputs[2]);
+					double posX = stof(inputs[3]);
+					double posY = stof(inputs[4]);
+					double velX = stof(inputs[5]);
+					double velY = stof(inputs[6]);
 					Particle particleAdd = Particle(stoi(inputs[1]), mass, posX, posY, velX, velY);
 					cout << "Particle " << particleAdd.name << " added" << endl;
 					particles.push_back(particleAdd);
@@ -233,8 +233,8 @@ int main(void) {
 				}
 				Force * force = findForce(forces, stoi(inputs[1]));
 				Set * set = findSet(sets, stoi(inputs[2]));
-				float x = stof(inputs[3]);
-				float y = stof(inputs[4]);
+				double x = stof(inputs[3]);
+				double y = stof(inputs[4]);
 				if (set != NULL && force == NULL) {
 					// add a force, which is imposed on the particles in set whose size is given as a vector in inputs
 					Force forceAdd = Force(stoi(inputs[1]), stoi(inputs[2]), x, y);
@@ -420,7 +420,6 @@ int main(void) {
 				//run the simulation for <duration> seconds
 				while (time <= duration) {
 					// run the simulation by timetick
-					time += timetick;
 					for (int i = 0; i < set_to_simul.particlesInSet.size(); i++) {
 						Particle * particle = findParticle(particles, set_to_simul.particlesInSet[i]);
 						// caculate the imformation of particles
@@ -431,6 +430,7 @@ int main(void) {
 						// initialize the imformation which had caculated
 						particle->init();
 					}
+					time += timetick;
 				}
 				
 				
@@ -444,7 +444,6 @@ int main(void) {
 				//run the simulation for <duration> seconds and print out the location of each particle (x and y coordinates) at each tick
 				int duration = stoi(inputs[1]);
 				while (time <= duration) {
-					time += timetick;
 					for (int i = 0; i < set_to_simul.particlesInSet.size(); i++) {
 						Particle * particle = findParticle(particles, set_to_simul.particlesInSet[i]);
 						particle->calculate(particles, set_to_simul.particlesInSet, forces, set_to_simul.forcesInSet, gravity, timetick);
@@ -455,6 +454,7 @@ int main(void) {
 						cout << "P" << particle->name << "," << time << "," << particle->getPosition().x << "."
 							<< particle->getPosition().y << endl;
 					}
+					time += timetick;
 				}
 				time = 0;
 				break;

@@ -8,9 +8,9 @@ extern Particle * findParticle(std::vector<Particle> & particles, int name);
 extern Force * findForce(std::vector<Force> & forces, int name);
 extern Vector3 add(Vector3 v1, Vector3 v2);
 extern Vector3 subtraction(Vector3 v1, Vector3 v2);
-extern float distance(Vector3 v1, Vector3 v2);
+extern double distance(Vector3 v1, Vector3 v2);
 
-Particle::Particle(int name_ptc, float m, float x, float y, float vx, float vy) {
+Particle::Particle(int name_ptc, double m, double x, double y, double vx, double vy) {
 	// particle imformation
 	name = name_ptc;
 	mass = m;
@@ -29,7 +29,7 @@ Vector3 Particle::getVelocity() {
 	return Vel;
 }
 
-float Particle::getMass() {
+double Particle::getMass() {
 	return mass;
 }
 
@@ -41,19 +41,19 @@ void Particle::print() {
 
 void Particle::calculate(std::vector<Particle> particles, std::vector<int> particlesInSet, std::vector<Force> forces, std::vector<int> forcesInSet, bool gravity, int t) {
 	Vector3 sum_force = { 0, 0 };
-	float a_x, a_y, d_x, d_y;
-	const float g = 9.80665;
+	double a_x, a_y, d_x, d_y;
+	const double g = 6.67384e-11;
 	if (isFixed == 0) {
 		if (gravity) {
 			for (int i = 0; i < particlesInSet.size(); i++) {
 				Particle * particle = findParticle(particles, particlesInSet[i]);
 				if (particle->name != name) {
 					Vector3 displace = subtraction(particle->getPosition(), Pos);
-					float distance = sqrt(pow(displace.x, 2) + pow(displace.y, 2));
-					float theta = atan(displace.y / displace.x);
-					float grav = (g*mass*particle->getMass()) / pow(distance, 2);
-					float gravity_x = grav*cos(theta);
-					float gravity_y = grav*sin(theta);
+					double distance = sqrt(pow(displace.x, 2) + pow(displace.y, 2));
+					double theta = atan(displace.y / displace.x);
+					double grav = ((-1)*g*mass*particle->getMass()) / pow(distance, 2);
+					double gravity_x = grav*cos(theta);
+					double gravity_y = grav*sin(theta);
 					Vector3 gravity_calc = { gravity_x, gravity_y };
 					sum_force = add(sum_force, gravity_calc);
 				}
@@ -65,12 +65,12 @@ void Particle::calculate(std::vector<Particle> particles, std::vector<int> parti
 		}
 		a_x = sum_force.x / mass;
 		a_y = sum_force.y / mass;
-		d_x = Vel.x*t + (1 / 2)*a_x*pow(t, 2);
-		d_y = Vel.y*t + (1 / 2)*a_y*pow(t, 2);
+		d_x = (Vel.x*t) + (0.5*a_x*pow(t, 2));
+		d_y = (Vel.y*t) + (0.5*a_y*pow(t, 2));
 		Vector3 disp = { d_x, d_y };
 		Vector3 accel = { a_x*t, a_y*t };
-		Pos_post = add(Pos_post, disp);
-		Vel_post = add(Vel_post, accel);
+		Pos_post = add(Pos, disp);
+		Vel_post = add(Vel, accel);
 	}
 }
 

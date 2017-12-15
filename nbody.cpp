@@ -10,6 +10,7 @@
 using namespace std;
 
 Vector3 add(Vector3 v1, Vector3 v2) {
+	// addition of vector
 	float res_x, res_y;
 	res_x = v1.x + v2.x;
 	res_y = v1.y + v2.y;
@@ -18,6 +19,7 @@ Vector3 add(Vector3 v1, Vector3 v2) {
 }
 
 Vector3 subtraction(Vector3 v1, Vector3 v2) {
+	// subtraction of vector
 	float res_x, res_y;
 	res_x = v1.x - v2.x;
 	res_y = v1.y - v2.y;
@@ -26,6 +28,7 @@ Vector3 subtraction(Vector3 v1, Vector3 v2) {
 }
 
 float distance(Vector3 v1, Vector3 v2) {
+	// distance between vectors
 	Vector3 sub = subtraction(v1, v2);
 	float dis_x = sub.x;
 	float dis_y = sub.y;

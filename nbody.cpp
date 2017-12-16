@@ -470,7 +470,7 @@ int main(void) {
 						// initialize particle and print imformation
 						Particle * particle = findParticle(particles, set_to_simul.particlesInSet[j]);
 						particle->init();
-						cout << "P" << particle->name << "," << time << "," << particle->getPosition().x << "."
+						cout << "P" << particle->name << "," << time << "," << particle->getPosition().x << ","
 							<< particle->getPosition().y << endl;
 					}
 					time += timetick;

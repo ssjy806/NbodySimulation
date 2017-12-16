@@ -146,7 +146,7 @@ int main(void) {
 					// print information of set with the number of input 
 					cout << "--- Set " << set->name << " ---" << endl;
 					for (int i = 0; i < set->particlesInSet.size(); i++) {
-						// print imformation of all particles in set
+						// print information of all particles in set
 						findParticle(particles, set->particlesInSet[i])->print();
 					}
 				}
@@ -178,6 +178,10 @@ int main(void) {
 			case 'p': {
 				if (inputs.size() != 7) {
 					cout << "Wrong number of parameters" << endl;
+					break;
+				}
+				if (stoi(inputs[1]) < 0) {
+					cout << "Particle number is not in range!" << endl;
 					break;
 				}
 				Particle * particle = findParticle(particles, stoi(inputs[1]));
@@ -257,9 +261,9 @@ int main(void) {
 				else if (set == NULL && force == NULL)
 					cout << "No set with that number" << endl;
 				else if (set != NULL && force != NULL)
-					cout << "force" << force << "already exist" << endl;
+					cout << "force " << force->name << " already exist" << endl;
 				else
-					cout << "No set with that number and force" << force << "already exist" << endl;
+					cout << "No set with that number and force " << force->name << " already exist" << endl;
 				break;
 			}
 			default:
@@ -342,7 +346,7 @@ int main(void) {
 				cout << "Particles: 0" << endl;
 				cout << "Forces: 0" << endl;
 				cout << "Sets: 0" << endl;
-				return 0;
+				break;
 			}
 			default:
 				cout << "Unrecognized command!" << endl;
@@ -435,7 +439,7 @@ int main(void) {
 					// run the simulation by timetick
 					for (int i = 0; i < set_to_simul.particlesInSet.size(); i++) {
 						Particle * particle = findParticle(particles, set_to_simul.particlesInSet[i]);
-						// caculate the imformation of particles
+						// caculate the information of particles
 						particle->calculate(particles, set_to_simul.particlesInSet, forces, set_to_simul.forcesInSet, gravity, timetick);
 						}
 					for (int i = 0; i < set_to_simul.particlesInSet.size(); i++) {

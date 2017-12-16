@@ -11,7 +11,7 @@ extern Vector3 subtraction(Vector3 v1, Vector3 v2);
 extern double distance(Vector3 v1, Vector3 v2);
 
 Particle::Particle(int name_ptc, double m, double x, double y, double vx, double vy) {
-	// particle imformation
+	// particle information
 	name = name_ptc;
 	mass = m;
 	Pos = { x, y };
@@ -37,10 +37,10 @@ double Particle::getMass() {
 }
 
 void Particle::print() {
-	// print imformation of particle
+	// print information of particle
 	std::cout << "Particle: " << name << std::endl;
 	std::cout << "  Location: (" << Pos.x << "," << Pos.y << ")" << std::endl;
-	std::cout << "  Velocity: (" << Vel.y << "," << Vel.y << ")" << std::endl;
+	std::cout << "  Velocity: (" << Vel.x << "," << Vel.y << ")" << std::endl;
 }
 
 void Particle::calculate(std::vector<Particle> particles, std::vector<int> particlesInSet, std::vector<Force> forces, std::vector<int> forcesInSet, bool gravity, int tick) {

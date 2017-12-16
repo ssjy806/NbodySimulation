@@ -2,7 +2,7 @@
 #include "Force.h"
 
 Force::Force(int name_force, int name_set, double x, double y) {
-	// force imformation
+	// force information
 	name = name_force;
 	Dir = { x, y };
 	set = name_set;

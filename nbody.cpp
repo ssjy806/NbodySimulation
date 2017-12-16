@@ -355,6 +355,7 @@ int main(void) {
 				else {
 					cout << "Set " << inputs[1] << " not exists" << endl;
 				}
+				break;
 			}
 			case 't': {
 				if (inputs.size() != 2) {

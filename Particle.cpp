@@ -1,6 +1,6 @@
 #include "Particle.h"
 #include "Force.h"
-#include <cmath>
+#include <math.h>
 #include <iostream>
 #include <vector>
 
@@ -39,8 +39,9 @@ void Particle::print() {
 	std::cout << "  Velocity: (" << Vel.y << "," << Vel.y << ")" << std::endl;
 }
 
-void Particle::calculate(std::vector<Particle> particles, std::vector<int> particlesInSet, std::vector<Force> forces, std::vector<int> forcesInSet, bool gravity, int t) {
+void Particle::calculate(std::vector<Particle> particles, std::vector<int> particlesInSet, std::vector<Force> forces, std::vector<int> forcesInSet, bool gravity, int tick) {
 	Vector3 sum_force = { 0, 0 };
+	int t = tick;
 	double a_x, a_y, d_x, d_y;
 	const double g = 6.67384e-11;
 	if (isFixed == 0) {
@@ -50,8 +51,8 @@ void Particle::calculate(std::vector<Particle> particles, std::vector<int> parti
 				if (particle->name != name) {
 					Vector3 displace = subtraction(particle->getPosition(), Pos);
 					double distance = sqrt(pow(displace.x, 2) + pow(displace.y, 2));
-					double theta = atan(displace.y / displace.x);
-					double grav = ((-1)*g*mass*particle->getMass()) / pow(distance, 2);
+					double theta = atan2(displace.y, displace.x);
+					double grav = (g*mass*particle->getMass()) / pow(distance, 2);
 					double gravity_x = grav*cos(theta);
 					double gravity_y = grav*sin(theta);
 					Vector3 gravity_calc = { gravity_x, gravity_y };

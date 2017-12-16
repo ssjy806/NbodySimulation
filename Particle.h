@@ -14,7 +14,7 @@ public:
 	Vector3 getPosition(), getVelocity();
 	double getMass();
 	void print();
-	void calculate(std::vector<Particle> particles, std::vector<int> particlesInSet, std::vector<Force> forces, std::vector<int> forcesInSet, bool gravity, int t);
+	void calculate(std::vector<Particle> particles, std::vector<int> particlesInSet, std::vector<Force> forces, std::vector<int> forcesInSet, bool gravity, int tick);
 	std::vector<int> getIncludedSets();
 	void addIncludedSets(int set_name);
 	void delIncludedSets(int set_name);

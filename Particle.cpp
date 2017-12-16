@@ -40,7 +40,7 @@ void Particle::print() {
 	// print imformation of particle
 	std::cout << "Particle: " << name << std::endl;
 	std::cout << "  Location: (" << Pos.x << "," << Pos.y << ")" << std::endl;
-	std::cout << "  Velocity: (" << Vel.y << "," << Vel.y << ")" << std::endl;
+	std::cout << "  Velocity: (" << Vel.x << "," << Vel.y << ")" << std::endl;
 }
 
 void Particle::calculate(std::vector<Particle> particles, std::vector<int> particlesInSet, std::vector<Force> forces, std::vector<int> forcesInSet, bool gravity, int tick) {

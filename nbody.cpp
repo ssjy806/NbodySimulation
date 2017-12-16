@@ -36,12 +36,14 @@ double distance(Vector3 v1, Vector3 v2) {
 }
 
 Particle * findParticle(vector<Particle> & particles, int name) {
+	// find particle
 	Particle * particle = NULL;
 	if (particles.size() == 0) {
 		return particle;
 	}
 	for (int i = 0; i < particles.size(); i++) {
 		if (particles[i].name == name) {
+			// name the particle
 			particle = &particles[i];
 			break;
 		}
@@ -51,9 +53,11 @@ Particle * findParticle(vector<Particle> & particles, int name) {
 }
 
 Set * findSet(vector<Set> & sets, int name) {
+	// find set
 	Set * set = NULL;
 	for (int i = 0; i < sets.size(); i++) {
 		if (sets[i].name == name) {
+			// name the set
 			set = &sets[i];
 			break;
 		}
@@ -63,9 +67,11 @@ Set * findSet(vector<Set> & sets, int name) {
 }
 
 Force * findForce(vector<Force> & forces, int name) {
+	// find force
 	Force * force = NULL;
 	for (int i = 0; i < forces.size(); i++) {
 		if (forces[i].name == name) {
+			// name the force
 			force = &forces[i];
 			break;
 		}
@@ -76,6 +82,7 @@ Force * findForce(vector<Force> & forces, int name) {
 
 
 int main(void) {
+	// declare vectors
 	vector<Set> sets;
 	vector<Particle> particles;
 	vector<Force> forces;
@@ -89,6 +96,7 @@ int main(void) {
 		string rawInput;
 		stringstream strStream;
 		cout << "Enter a command: ";
+		// get a line of input
 		getline(cin, rawInput);
 		strStream.str(rawInput);
 		while (strStream >> buffer)
@@ -348,6 +356,7 @@ int main(void) {
 					cout << "Wrong number of parameters" << endl;
 					break;
 				}
+				// decide simulation set
 				Set * set = findSet(sets, stoi(inputs[1]));
 				if (set != NULL) {
 					set_to_simul = *set;
@@ -445,14 +454,16 @@ int main(void) {
 					cout << "Wrong number of parameters" << endl;
 					break;
 				}
-				//run the simulation for <duration> seconds and print out the location of each particle (x and y coordinates) at each tick
+				// run the simulation for <duration> seconds and print out the location of each particle (x and y coordinates) at each tick
 				int duration = stoi(inputs[1]);
 				while (time <= duration) {
 					for (int i = 0; i < set_to_simul.particlesInSet.size(); i++) {
+						// calculate particles
 						Particle * particle = findParticle(particles, set_to_simul.particlesInSet[i]);
 						particle->calculate(particles, set_to_simul.particlesInSet, forces, set_to_simul.forcesInSet, gravity, timetick);
 					}
 					for (int j = 0; j < set_to_simul.particlesInSet.size(); j++) {
+						// initialize particle and print imformation
 						Particle * particle = findParticle(particles, set_to_simul.particlesInSet[j]);
 						particle->init();
 						cout << "P" << particle->name << "," << time << "," << particle->getPosition().x << "."
